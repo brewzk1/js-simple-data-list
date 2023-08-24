@@ -1,5 +1,5 @@
 'use strict';
-const fruitsArr = ['Apple', 'Banana', 'Bluberry', 'Cherry', 'Coconut', 'Grape', 'Guava', 'Jackfruit', 'Kiwi', 'Kumquat', 'Lemon', 'Mango', 'Orange', 'Papaya', 'Pear', 'Pinapple', 'Pomegranate', 'Raspberry', 'Strawberry'];
+const fruitsArr = ['Apple', 'Apricot', 'Banana', 'Bluberry', 'Cantaloupe', 'Cherry', 'Coconut', 'Grape', 'Guava', 'Jackfruit', 'Kiwi', 'Kumquat', 'Lemon', 'Mango', 'Orange', 'Papaya', 'Parsimmon', 'Pear', 'Pinapple', 'Pomegranate', 'Raspberry', 'Strawberry'];
 
 // datalist (for comparison only)
 const dataListItemsEl = document.getElementById('dataListItems');
@@ -23,7 +23,7 @@ const component = customList.bind(customListEl)
 
 function customList(originalArray) {
     const inputEl = this.getElementsByTagName('INPUT')[0];
-    const ulEl = this.getElementsByTagName('UL')[0];
+    const UL = this.getElementsByTagName('UL')[0];
 
     // create a new arr of objects with IDs (assuming the original is not an arr of objects)
     let menuItemsArr = originalArray.map((item, i) => {
@@ -32,18 +32,18 @@ function customList(originalArray) {
 
     // use menuItemsArr to create LI and A tags and add to UL
     menuItemsArr.forEach(item => {
-        const liEl = document.createElement('li');
-        const aEl = document.createElement('a');
+        const LI = document.createElement('li');
+        const A = document.createElement('a');
 
-        aEl.setAttribute('href', '#');
-        aEl.setAttribute('data-menu-selected', 'false');
-        aEl.innerText = item.data;
-        aEl.addEventListener('click', function () {
+        A.setAttribute('href', '#');
+        A.setAttribute('data-menu-matched', 'false');
+        A.innerText = item.data;
+        A.addEventListener('click', function () {
             console.log('toggle data attr here')
         });
 
-        liEl.appendChild(aEl);
-        ulEl.appendChild(liEl);
+        LI.appendChild(A);
+        UL.appendChild(LI);
     });
 
     //update menu items based on search string
@@ -52,27 +52,27 @@ function customList(originalArray) {
     });
 
     function updateMenuSelection(inputTxtValue) {
-        const LIs = Array.from(ulEl.children);
+        const LIs = Array.from(UL.children);
 
         // if the text field is filled out display menu items that match it,
         // else display all menu items
         if (inputTxtValue !== '') {
             LIs.forEach(LI => {
-                const a = LI.children[0];
+                const A = LI.children[0];
 
-                if ((a.innerText).toLowerCase().includes((inputTxtValue).toLowerCase())) {
-                    a.dataset.menuSelected = 'true';
+                if ((A.innerText).toLowerCase().includes((inputTxtValue).toLowerCase())) {
+                    A.dataset.menuMatched = 'true';
                     LI.style.display = 'block';
                 } else {
-                    a.dataset.menuSelected = 'false';
+                    A.dataset.menuMatched = 'false';
                     LI.style.display = 'none';
                 }
             })
         } else {
             LIs.forEach(LI => {
-                const a = LI.children[0];
+                const A = LI.children[0];
 
-                a.dataset.menuSelected = 'false';
+                A.dataset.menuMatched = 'false';
                 LI.style.display = 'block';
             });
         }
@@ -85,4 +85,3 @@ component(fruitsArr);
 // TODO optionally show check for selected items
 // TODO LIs should be tabbable
 // TODO add button to toggle list items (for now click it is ok)
-// TODO remember to remove event listeners
