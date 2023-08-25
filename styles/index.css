@@ -1,25 +1,20 @@
- .customList ul {
+ .customList div {
      position: absolute;
-     margin: 0;
-     padding: 0;
+     display: flex;
+     flex-direction: column;
+     max-width: max-content;
      max-height: 30vh;
      overflow-y: auto;
      display: none;
+ }
+
+ .customList a {
+     text-decoration: none;
+     color: white;
+     padding: 10px;
      background-color: #3b3046;
  }
 
- .customList ul li {
-     list-style: none;
-     padding: 0.20rem 1rem;
-     margin: 0;
- }
-
- .customList ul li a {
-     text-decoration: none;
-     color: white;
-     line-height: 1.5rem;
- }
-
- .customList ul li:hover {
+ .customList a:hover {
      background-color: blueviolet;
  }

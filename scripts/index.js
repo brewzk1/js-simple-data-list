@@ -18,21 +18,21 @@ function addFruitsToMenu(targetEl) {
 }
 
 // custom
+// TODO this could be moved inside the function i think
 const customListEl = document.getElementsByClassName('customList')[0];
 const component = customList.bind(customListEl)
 
 function customList(originalArray) {
     const inputEl = this.getElementsByTagName('INPUT')[0];
-    const UL = this.getElementsByTagName('UL')[0];
+    const DIV = this.getElementsByTagName('DIV')[0];
 
     // create a new arr of objects with IDs (assuming the original is not an arr of objects)
     let menuItemsArr = originalArray.map((item, i) => {
         return { id: i, data: item, selected: 'false' };
     });
 
-    // use menuItemsArr to create LI and A tags and add to UL
+    // use menuItemsArr to create A tags and add to DIV
     menuItemsArr.forEach(item => {
-        const LI = document.createElement('li');
         const A = document.createElement('a');
 
         // A.setAttribute('data-menu-matched', 'false');
@@ -49,8 +49,7 @@ function customList(originalArray) {
             }
         });
 
-        LI.appendChild(A);
-        UL.appendChild(LI);
+        DIV.appendChild(A);
     });
 
     //update menu items based on search string
@@ -59,32 +58,28 @@ function customList(originalArray) {
     });
 
     function updateMenuSelection(inputTxtValue) {
-        const LIs = Array.from(UL.children);
+        const As = Array.from(DIV.children);
 
         // if the text field is filled out display menu items that match it,
         // else display all menu items
         if (inputTxtValue !== '') {
-            LIs.forEach(LI => {
-                const A = LI.children[0];
-
+            As.forEach(A => {
                 if ((A.innerText).toLowerCase().includes((inputTxtValue).toLowerCase())) {
                     // A.dataset.menuMatched = 'true';
-                    LI.style.display = 'block';
+                    A.style.display = 'block';
                 } else {
                     A.dataset.menuMatched = 'false';
-                    LI.style.display = 'none';
+                    A.style.display = 'none';
                 }
             })
         } else {
-            LIs.forEach(LI => {
-                const A = LI.children[0];
-
+            As.forEach(A => {
                 // A.dataset.menuMatched = 'false';
-                LI.style.display = 'block';
+                A.style.display = 'block';
             });
         }
 
-        UL.style.display = (inputTxtValue !== '') ? 'block' : 'none';
+        DIV.style.display = (inputTxtValue !== '') ? 'block' : 'none';
     }
 }
 
