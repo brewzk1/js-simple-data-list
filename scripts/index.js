@@ -27,7 +27,7 @@ function customList(originalArray) {
 
     // create a new arr of objects with IDs (assuming the original is not an arr of objects)
     let menuItemsArr = originalArray.map((item, i) => {
-        return { id: i, data: item };
+        return { id: i, data: item, selected: 'false' };
     });
 
     // use menuItemsArr to create LI and A tags and add to UL
@@ -35,11 +35,19 @@ function customList(originalArray) {
         const LI = document.createElement('li');
         const A = document.createElement('a');
 
+        // A.setAttribute('data-menu-matched', 'false');
         A.setAttribute('href', '#');
-        A.setAttribute('data-menu-matched', 'false');
-        A.innerText = item.data;
+        A.setAttribute('data-menu-selected', 'false');
+        A.textContent = item.data;
         A.addEventListener('click', function () {
-            console.log('toggle data attr here')
+            if (item.selected === 'false') {
+                item.selected = 'true';
+                this.setAttribute('data-menu-selected', 'true');
+            } else {
+                item.selected = 'false';
+                this.setAttribute('data-menu-selected', 'false');
+            }
+            console.log(item, A)
         });
 
         LI.appendChild(A);
@@ -61,7 +69,7 @@ function customList(originalArray) {
                 const A = LI.children[0];
 
                 if ((A.innerText).toLowerCase().includes((inputTxtValue).toLowerCase())) {
-                    A.dataset.menuMatched = 'true';
+                    // A.dataset.menuMatched = 'true';
                     LI.style.display = 'block';
                 } else {
                     A.dataset.menuMatched = 'false';
@@ -72,7 +80,7 @@ function customList(originalArray) {
             LIs.forEach(LI => {
                 const A = LI.children[0];
 
-                A.dataset.menuMatched = 'false';
+                // A.dataset.menuMatched = 'false';
                 LI.style.display = 'block';
             });
         }
