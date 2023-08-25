@@ -18,12 +18,11 @@ function addFruitsToMenu(targetEl) {
 }
 
 // custom
-// TODO this could be moved inside the function i think
 const customListEl = document.getElementsByClassName('customList')[0];
 const component = customList.bind(customListEl)
 
 function customList(originalArray) {
-    const inputEl = this.getElementsByTagName('INPUT')[0];
+    const INPUT_TEXT = this.getElementsByTagName('INPUT')[0];
     const DIV = this.getElementsByTagName('DIV')[0];
 
     // create a new arr of objects with IDs (assuming the original is not an arr of objects)
@@ -53,7 +52,7 @@ function customList(originalArray) {
     });
 
     //update menu items based on search string
-    inputEl.addEventListener('keyup', function () {
+    INPUT_TEXT.addEventListener('keyup', function () {
         updateMenuSelection(this.value);
     });
 
@@ -87,5 +86,5 @@ component(fruitsArr);
 
 // TODO optionally show chips of selected items
 // TODO optionally show check for selected items
-// TODO LIs should be tabbable
 // TODO add button to toggle list items (for now click it is ok)
+// TODO make sure originalArr has items before creating menus
