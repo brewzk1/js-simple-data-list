@@ -52,10 +52,20 @@ function customList(originalArray) {
                 item.selected = 'false';
                 this.setAttribute('data-menu-selected', 'false');
             }
+
+            updateSelectedItems();
         });
 
         DIV.appendChild(A);
     });
+
+    function updateSelectedItems() {
+        const As = Array.from(DIV.children);
+        let selectItems = [];
+
+        selectItems = As.filter(A => A.dataset.menuSelected === 'true');
+        console.log('>>', selectItems)
+    }
 
     // update menu items based on search string
     INPUT_TEXT.addEventListener('keyup', function () {
