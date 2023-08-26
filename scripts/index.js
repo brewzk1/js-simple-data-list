@@ -40,10 +40,9 @@ function customList(originalArray) {
     menuItemsArr.forEach(item => {
         const A = document.createElement('a');
 
-        // A.setAttribute('data-menu-matched', 'false');
+        A.textContent = item.data;
         A.setAttribute('href', '#');
         A.setAttribute('data-menu-selected', 'false');
-        A.textContent = item.data;
         A.addEventListener('click', function () {
             if (item.selected === 'false') {
                 item.selected = 'true';
@@ -69,26 +68,23 @@ function customList(originalArray) {
 
     // update menu items based on search string
     INPUT_TEXT.addEventListener('keyup', function () {
-        updateMenuSelection(this.value);
+        updateMenu(this.value);
     });
 
-    function updateMenuSelection(inputTxtValue) {
+    function updateMenu(inputTxtValue) {
         const As = Array.from(DIV.children);
 
         // if text field is filled out display matches else display all items
         if (inputTxtValue !== '') {
             As.forEach(A => {
                 if ((A.innerText).toLowerCase().includes((inputTxtValue).toLowerCase())) {
-                    // A.dataset.menuMatched = 'true';
                     A.style.display = 'block';
                 } else {
-                    A.dataset.menuMatched = 'false';
                     A.style.display = 'none';
                 }
-            })
+            });
         } else {
             As.forEach(A => {
-                // A.dataset.menuMatched = 'false';
                 A.style.display = 'block';
             });
         }
