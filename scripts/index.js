@@ -52,18 +52,34 @@ function customList(originalArray) {
                 this.setAttribute('data-menu-selected', 'false');
             }
 
-            updateSelectedItems();
+            updateInputField();
         });
 
         DIV.appendChild(A);
     });
 
-    function updateSelectedItems() {
+    function updateInputField() {
         const As = Array.from(DIV.children);
-        let selectItems = [];
+        let selectedItems = [];
 
-        selectItems = As.filter(A => A.dataset.menuSelected === 'true');
-        console.log('>>', selectItems)
+        // string selected items values together (separated by comma)
+        // and updated input field
+        // BUG  deselecting should remove item from selectedItems and input field
+        selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
+        if (selectedItems.length > 0) {
+            let items = '';
+
+            selectedItems.forEach((o, i) => {
+                if (i === selectedItems.length - 1) {
+                    items += o.innerText;
+                } else {
+                    items += o.innerText + ', ';
+                }
+            });
+
+            INPUT_TEXT.value = '';
+            INPUT_TEXT.value = items;
+        }
     }
 
     // update menu items based on search string
