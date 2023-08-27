@@ -100,5 +100,3 @@ comboBox('veggiesMenu', veggiesArr);
 // TODO single (default): clicking 1 item should close menu
 // TODO multiple: allow for it (ie menu stays open w scroll bar)
 // TODO multiple: optionally show check for selected items
-// https://www.dom-tricks.com/click-outside
-// https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#:~:text=A%20combobox%20is%20an%20input,the%20popup%20presents%20suggested%20values.
