@@ -80,15 +80,13 @@ function customList(originalArray) {
         }
 
         // update menu items based on input text
-        INPUT_TEXT.addEventListener('keyup', (event) => updateMenu(event.target.value));
-
-        function updateMenu(inputTxtValue) {
+        INPUT_TEXT.addEventListener('keyup', function (event) {
             const As = Array.from(DIV.children);
 
             // if text field is filled out display matches else display all items
-            if (inputTxtValue !== '') {
+            if (this.value !== '') {
                 As.forEach(A => {
-                    if ((A.innerText).toLowerCase().includes((inputTxtValue).toLowerCase())) {
+                    if ((A.innerText).toLowerCase().includes((this.value).toLowerCase())) {
                         A.style.display = 'block';
                     } else {
                         A.style.display = 'none';
@@ -100,12 +98,11 @@ function customList(originalArray) {
                 });
             }
 
-            DIV.style.display = (inputTxtValue !== '') ? 'block' : 'none';
-        }
+            DIV.style.display = (this.value !== '') ? 'block' : 'none';
+        });
     } else {
         console.warn('Custom menu has no data!');
     }
-
 }
 
 // listen for clicks outside of menu, and broadcast custom event if true
