@@ -1,38 +1,22 @@
 'use strict';
+
 const fruitsArr = ['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cantaloupe', 'Cherry', 'Coconut', 'Date', 'Grape', 'Guava', 'Jackfruit', 'Kiwi', 'Kumquat', 'Lemon', 'Mango', 'Nectarine', 'Orange', 'Papaya', 'Parsimmon', 'Pear', 'Peach', 'Pinapple', 'Pomegranate', 'Raspberry', 'Strawberry', 'Sugar Cane'];
 
-// datalist (for comparison only)
-const dataListItemsEl = document.getElementById('dataListItems');
+const veggiesArr = ['Tomato', 'Lettuce', 'Carrot', 'Beets'];
 
-addFruitsToMenu(dataListItemsEl);
+function comboBox(id, originalArray) {
+    const widget = document.getElementById(id);
 
-function addFruitsToMenu(targetEl) {
-    fruitsArr.forEach(fruit => {
-        const optionEl = document.createElement('option');
-
-        if (targetEl.tagName === 'DATALIST') {
-            optionEl.setAttribute('value', fruit);
-            targetEl.appendChild(optionEl);
-        }
-    });
-}
-
-// custom
-const clickedOutside = new Event('clickedOutside');
-const customListEl = document.getElementsByClassName('customList')[0];
-const component = customList.bind(customListEl);
-
-function customList(originalArray) {
     if (originalArray.length > 0) {
-        const INPUT_TEXT = this.getElementsByTagName('INPUT')[0];
-        const DIV = this.getElementsByTagName('DIV')[0];
+        const INPUT_TEXT = widget.getElementsByTagName('INPUT')[0];
+        const DIV = widget.getElementsByTagName('DIV')[0];
 
         // listen for custom event and hide menu if its showing
-        this.addEventListener('clickedOutside', function () {
+        widget.addEventListener('comboBoxEvent', function () {
             if (DIV.style.display = 'block') DIV.style.display = 'none';
         });
 
-        // create a new arr of objects with IDs (assuming the original is not an arr of objects)
+        // create a new arr of objects with IDs
         const menuItemsArr = originalArray.map((item, i) => {
             return { id: i, data: item };
         });
@@ -54,7 +38,7 @@ function customList(originalArray) {
             DIV.appendChild(A);
         });
 
-        // updatee items in the input field when menu items are clicked
+        // update items in the input field when menu items are clicked
         function updateInputField() {
             const As = Array.from(DIV.children);
             const selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
@@ -81,7 +65,7 @@ function customList(originalArray) {
         INPUT_TEXT.addEventListener('keyup', function () {
             const As = Array.from(DIV.children);
 
-            // if text field is filled out display matches else display all items
+            // if text field is filled out, display matched items else display all items
             if (this.value !== '') {
                 As.forEach(A => {
                     if ((A.innerText).toLowerCase().includes((this.value).toLowerCase())) {
@@ -90,6 +74,7 @@ function customList(originalArray) {
                         A.style.display = 'none';
                     }
                 });
+
                 DIV.style.display = 'block';
             } else {
                 As.forEach(A => {
@@ -97,23 +82,23 @@ function customList(originalArray) {
                 });
                 DIV.style.display = 'none';
             }
-
         });
-    } else {
-        console.warn('Custom menu has no data!');
+    }
+
+    // track when outside menu is clicked
+    if (window.comboBoxEvent === undefined) window.comboBoxEvent = new Event('comboBoxEvent');
+    if (window.comboBoxEvent instanceof (Event)) {
+        document.addEventListener('click', function (event) {
+            if (!widget.contains(event.target)) widget.dispatchEvent(window.comboBoxEvent);
+        });
     }
 }
 
-// listen for clicks outside of menu, and broadcast custom event if true
-document.addEventListener('click', function (event) {
-    if (!customListEl.contains(event.target)) customListEl.dispatchEvent(clickedOutside);
-});
-
-component(fruitsArr);
+comboBox('fruitsMenu', fruitsArr);
+comboBox('veggiesMenu', veggiesArr);
 
 // TODO single (default): clicking 1 item should close menu
 // TODO multiple: allow for it (ie menu stays open w scroll bar)
 // TODO multiple: optionally show check for selected items
-// TODO add button to toggle list items (for now click it is ok)
-
 // https://www.dom-tricks.com/click-outside
+// https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#:~:text=A%20combobox%20is%20an%20input,the%20popup%20presents%20suggested%20values.
