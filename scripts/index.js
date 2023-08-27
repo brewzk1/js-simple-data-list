@@ -33,32 +33,27 @@ function customList(originalArray) {
 
     // create a new arr of objects with IDs (assuming the original is not an arr of objects)
     const menuItemsArr = originalArray.map((item, i) => {
-        return { id: i, data: item, selected: 'false' };
+        return { id: i, data: item };
     });
 
     // use menuItemsArr to create A tags and add to DIV
     menuItemsArr.forEach(item => {
-        const A = document.createElement('a');
+        const A = document.createElement('A');
 
         A.textContent = item.data;
         A.setAttribute('href', '#');
         A.setAttribute('data-menu-selected', 'false');
         A.addEventListener('click', function () {
-            if (this.dataset.menuSelected === 'false') {
-                // item.selected = 'true';
-                this.setAttribute('data-menu-selected', 'true');
-            } else {
-                // item.selected = 'false';
-                this.setAttribute('data-menu-selected', 'false');
-            }
+            let menuState = this.dataset.menuSelected === 'false' ? 'true' : 'false';
 
+            this.setAttribute('data-menu-selected', menuState);
             updateInputField();
         });
 
         DIV.appendChild(A);
     });
 
-    // add/remove items from the input field based on menu items clicked
+    // updatee items in the input field when menu items are clicked
     function updateInputField() {
         const As = Array.from(DIV.children);
         let selectedItems = [];
@@ -80,12 +75,12 @@ function customList(originalArray) {
         } else {
             INPUT_TEXT.value = '';
         }
+        // BUG deslecting items via menu should empty close the menu
+        console.log('v1')
     }
 
-    // update menu items based on search string
-    INPUT_TEXT.addEventListener('keyup', function () {
-        updateMenu(this.value);
-    });
+    // update menu items based on input text
+    INPUT_TEXT.addEventListener('keyup', (event) => updateMenu(event.target.value));
 
     function updateMenu(inputTxtValue) {
         const As = Array.from(DIV.children);
