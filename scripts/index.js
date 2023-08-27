@@ -115,9 +115,9 @@ document.addEventListener('click', function (event) {
 
 component(fruitsArr);
 
-// TODO optionally show chips of selected items
-// TODO optionally show check for selected items
+// TODO single (default): clicking 1 item should close menu
+// TODO multiple: allow for it (ie menu stays open w scroll bar)
+// TODO multiple: optionally show check for selected items
 // TODO add button to toggle list items (for now click it is ok)
-// TODO make sure originalArr has items before creating menus
 
 // https://www.dom-tricks.com/click-outside
