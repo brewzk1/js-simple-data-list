@@ -62,7 +62,7 @@ function comboBox(id, originalArray) {
         }
 
         // update menu items based on input text
-        INPUT_TEXT.addEventListener('keyup', function () {
+        INPUT_TEXT.addEventListener('keyup', function (evt) {
             const As = Array.from(DIV.children);
 
             // if text field is filled out, display matched items else display all items
@@ -82,6 +82,9 @@ function comboBox(id, originalArray) {
                 });
                 DIV.style.display = 'none';
             }
+
+            // if esc hide menu
+            if (evt.key === 'Escape') DIV.style.display = 'none';
         });
     }
 
