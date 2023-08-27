@@ -1,5 +1,5 @@
 'use strict';
-const fruitsArr = ['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cantaloupe', 'Cherry', 'Coconut', 'Grape', 'Guava', 'Jackfruit', 'Kiwi', 'Kumquat', 'Lemon', 'Mango', 'Orange', 'Papaya', 'Parsimmon', 'Pear', 'Peach', 'Pinapple', 'Pomegranate', 'Raspberry', 'Strawberry'];
+const fruitsArr = ['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cantaloupe', 'Cherry', 'Coconut', 'Date', 'Grape', 'Guava', 'Jackfruit', 'Kiwi', 'Kumquat', 'Lemon', 'Mango', 'Nectarine', 'Orange', 'Papaya', 'Parsimmon', 'Pear', 'Peach', 'Pinapple', 'Pomegranate', 'Raspberry', 'Strawberry', 'Sugar Cane'];
 
 // datalist (for comparison only)
 const dataListItemsEl = document.getElementById('dataListItems');
@@ -45,7 +45,7 @@ function customList(originalArray) {
             A.setAttribute('href', '#');
             A.setAttribute('data-menu-selected', 'false');
             A.addEventListener('click', function () {
-                let menuState = this.dataset.menuSelected === 'false' ? 'true' : 'false';
+                const menuState = this.dataset.menuSelected === 'false' ? 'true' : 'false';
 
                 this.setAttribute('data-menu-selected', menuState);
                 updateInputField();
@@ -57,9 +57,7 @@ function customList(originalArray) {
         // updatee items in the input field when menu items are clicked
         function updateInputField() {
             const As = Array.from(DIV.children);
-            let selectedItems = [];
-
-            selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
+            const selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
 
             if (selectedItems.length > 0) {
                 let items = '';
@@ -75,12 +73,12 @@ function customList(originalArray) {
                 INPUT_TEXT.value = items;
             } else {
                 INPUT_TEXT.value = '';
+                DIV.style.display = 'none';
             }
-            // BUG deslecting items via menu should empty close the menu
         }
 
         // update menu items based on input text
-        INPUT_TEXT.addEventListener('keyup', function (event) {
+        INPUT_TEXT.addEventListener('keyup', function () {
             const As = Array.from(DIV.children);
 
             // if text field is filled out display matches else display all items
@@ -92,13 +90,14 @@ function customList(originalArray) {
                         A.style.display = 'none';
                     }
                 });
+                DIV.style.display = 'block';
             } else {
                 As.forEach(A => {
                     A.style.display = 'block';
                 });
+                DIV.style.display = 'none';
             }
 
-            DIV.style.display = (this.value !== '') ? 'block' : 'none';
         });
     } else {
         console.warn('Custom menu has no data!');
