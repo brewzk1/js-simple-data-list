@@ -44,11 +44,11 @@ function customList(originalArray) {
         A.setAttribute('href', '#');
         A.setAttribute('data-menu-selected', 'false');
         A.addEventListener('click', function () {
-            if (item.selected === 'false') {
-                item.selected = 'true';
+            if (this.dataset.menuSelected === 'false') {
+                // item.selected = 'true';
                 this.setAttribute('data-menu-selected', 'true');
             } else {
-                item.selected = 'false';
+                // item.selected = 'false';
                 this.setAttribute('data-menu-selected', 'false');
             }
 
@@ -58,14 +58,13 @@ function customList(originalArray) {
         DIV.appendChild(A);
     });
 
+    // add/remove items from the input field based on menu items clicked
     function updateInputField() {
         const As = Array.from(DIV.children);
         let selectedItems = [];
 
-        // string selected items values together (separated by comma)
-        // and updated input field
-        // BUG  deselecting should remove item from selectedItems and input field
         selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
+
         if (selectedItems.length > 0) {
             let items = '';
 
@@ -77,8 +76,9 @@ function customList(originalArray) {
                 }
             });
 
-            INPUT_TEXT.value = '';
             INPUT_TEXT.value = items;
+        } else {
+            INPUT_TEXT.value = '';
         }
     }
 
