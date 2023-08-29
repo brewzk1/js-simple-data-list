@@ -15,11 +15,6 @@ export default function comboBox(id, arr) {
             if (menu.style.display = 'flex') clearFieldHideMenu();
         });
 
-        // hide menu if esc key
-        widget.addEventListener('keyup', function (evt) {
-            if (evt.key === 'Escape') clearFieldHideMenu();
-        });
-
         // toggle menu
         button.addEventListener('click', function () {
             menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
@@ -46,8 +41,8 @@ export default function comboBox(id, arr) {
         // get anchors
         As = Array.from(menu.children);
 
-        // update menu items based on input text
         searchField.addEventListener('keyup', function (evt) {
+            // update menu items if input text
             if (this.value !== '') {
                 As.forEach(A => {
                     if ((A.innerText).toLowerCase().includes((this.value).toLowerCase())) {
@@ -60,11 +55,11 @@ export default function comboBox(id, arr) {
                 menu.style.display = 'flex';
             }
 
-            if (evt.key === 'ArrowUp' || evt.key === 'ArrowDown') {
-                menu.style.display = 'flex';
-                console.log('x')
-            }
+            // hide if esc key
+            if (evt.key === 'Escape') clearFieldHideMenu();
 
+            // show menu if up/down keys
+            if (evt.key === 'ArrowUp' || evt.key === 'ArrowDown') menu.style.display = 'flex';
         });
     }
 
@@ -94,7 +89,7 @@ export default function comboBox(id, arr) {
             menu.style.display = 'none';
         }
 
-        if (multiple) {
+        /* if (multiple) {
             selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
 
             if (selectedItems.length > 0) {
@@ -114,6 +109,6 @@ export default function comboBox(id, arr) {
                 clearFieldHideMenu();
             }
 
-        }
+        }*/
     }
 }
