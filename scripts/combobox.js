@@ -1,11 +1,17 @@
 'use strict';
-export default function comboBox(id, arr) {
+export default function comboBox(id, arr, multiSel) {
     const widget = document.getElementById(id);
     const searchField = widget.getElementsByTagName('input')[0];
     const button = widget.getElementsByTagName('button')[0];
     const menu = widget.getElementsByTagName('div')[0];
+    const multiSelect = multiSel || false;
     let As = [];
-    let multiple = false;
+
+    // if multiselect show menu as scrollbox
+    if (multiSelect === true) {
+        menu.classList.add('multi-select');
+        button.style.display = 'none'
+    }
 
     if (arr.length > 0) {
         const menuItems = arr.map((item, i) => ({ id: i, data: item }));
@@ -13,6 +19,11 @@ export default function comboBox(id, arr) {
         // hide menu if there was click elsewhere on page
         widget.addEventListener('comboBoxEvent', function () {
             if (menu.style.display = 'flex') clearFieldHideMenu();
+        });
+
+        // hide menu if esc key
+        widget.addEventListener('keyup', function (evt) {
+            if (evt.key === 'Escape') clearFieldHideMenu();
         });
 
         // toggle menu
@@ -32,7 +43,6 @@ export default function comboBox(id, arr) {
 
                 this.setAttribute('data-menu-selected', menuState);
                 updateInputField();
-                menu.style.display = 'none';
             });
 
             menu.appendChild(A);
@@ -54,9 +64,6 @@ export default function comboBox(id, arr) {
 
                 menu.style.display = 'flex';
             }
-
-            // hide if esc key
-            if (evt.key === 'Escape') clearFieldHideMenu();
 
             // show menu if up/down keys
             if (evt.key === 'ArrowUp' || evt.key === 'ArrowDown') menu.style.display = 'flex';
@@ -81,7 +88,7 @@ export default function comboBox(id, arr) {
         let selectedItems = [];
         let items = '';
 
-        if (!multiple) {
+        if (!multiSelect) {
             selectedItems = As.find(A => A.dataset.menuSelected === 'true');
             items = selectedItems.innerText;
             searchField.value = items;
@@ -89,7 +96,7 @@ export default function comboBox(id, arr) {
             menu.style.display = 'none';
         }
 
-        /* if (multiple) {
+        if (multiSelect) {
             selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
 
             if (selectedItems.length > 0) {
@@ -109,6 +116,6 @@ export default function comboBox(id, arr) {
                 clearFieldHideMenu();
             }
 
-        }*/
+        }
     }
 }
