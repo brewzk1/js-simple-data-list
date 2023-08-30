@@ -5,14 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="My exploration of the combox box and additional features.">
-    <title>ComboBox Exploration</title>
+    <title>Exploring the ComboBox</title>
     <link rel="stylesheet" href="styles/index.css">
 </head>
 
 <body>
-    <h1>ComboBox</h1>
-
     <main class="container">
+        <h1>Exploring the ComboBox</h1>
+        <p>This is an exploration of a <a
+                href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#:~:text=A%20combobox%20is%20an%20input,the%20popup%20presents%20suggested%20values"
+                target="_blank" rel="noopener noreferrer">combox box</a>.</p>
+
+        <!-- features -->
+        <h2>Features</h2>
+        <ul>
+            <li><b>No styles</b>; leaves that to developers or libraries like <b>Bootstrap</b></li>
+            <li>Can support <b>single</b> or <b>mulitple</b> selections</li>
+            <li>Navigable using <b>tabs</b> (sorta)</li>
+        </ul>
+
+        <!-- example 1 -->
+        <h2>Example 1</h2>
+        <p>There are 2 drop down menus. Clicking one closes a previously opened menu and opens on the widget that is in
+            focus.</p>
 
         <p><label for="fruits1Input"><b>Choose a 1st Fruit</b></label></p>
         <div id="fruits1Menu" class="comboBox">
@@ -26,41 +41,24 @@
             <div></div>
         </div>
 
-        <p><label for="fruits3Input"><b>Choose Fruits</b></label></p>
+        <!-- example 2 -->
+        <h2>Example 2</h2>
+        <p>This is a single menu which is always displayed and allows multiple selections via a scrollbox. </p>
+
+        <p><label for="fruits3Input"><b>Choose Multiple Fruits</b></label></p>
         <div id="fruits3Menu" class="comboBox">
             <input type="text" id="fruits3Input" autocomplete="off"><button>></button>
             <div></div>
         </div>
 
-        <h2>Exploration</h2>
-        <p>So this is an exploration of my own <a
-                href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#:~:text=A%20combobox%20is%20an%20input,the%20popup%20presents%20suggested%20values"
-                target="_blank" rel="noopener noreferrer">combox box</a>. Some of the features I hope to solve would
-            be:</p>
+        <!-- resources -->
+        <h3>Other Resources</h3>
         <ul>
-            <li>No <i>internal</i> styling (so it can styled by libraries like Bootstrap)</li>
-            <li>Ease of use</li>
-            <li>Maybe multiple selections</li>
-        </ul>
-
-        <h2>Other Resources</h2>
-
-        <ul>
-            <li>
-                <a href="https://www.w3schools.com/tags/tag_datalist.asp" target="_blank"
-                    rel="noopener noreferrer">Datalist tag</a>
-            </li>
             <li>
                 <a href="https://www.dom-tricks.com/click-outside" target="_blank" rel="noopener noreferrer">DOM Clicks
                     (outside)</a>
             </li>
         </ul>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi repellat repudiandae reiciendis
-            exercitationem quidem sapiente animi aut fugit minus molestiae a veritatis error possimus explicabo
-            nulla, ipsa nesciunt delectus nihil hic dolorum dolore veniam. Voluptatum quisquam ipsam aspernatur
-            officia excepturi fugit amet ullam explicabo consequuntur delectus, qui placeat, voluptates, dolorum hic
-            vel temporibus obcaecati atque esse voluptatem vitae aut nobis nemo quo reiciendis? Incidunt facere
-            officia ab ipsum, maxime quibusdam.</p>
     </main>
 
     <script type="module" src="scripts/index.js"></script>

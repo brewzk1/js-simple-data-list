@@ -1,14 +1,14 @@
 'use strict';
-export default function comboBox(id, arr, multiSel) {
+export default function comboBox(id, arr, isMultiSelect) {
     const widget = document.getElementById(id);
     const searchField = widget.getElementsByTagName('input')[0];
     const button = widget.getElementsByTagName('button')[0];
     const menu = widget.getElementsByTagName('div')[0];
-    const multiSelect = multiSel || false;
+    const multi = isMultiSelect || false;
     let As = [];
 
-    // if multiselect show menu as scrollbox
-    if (multiSelect === true) {
+    // if multi show menu as scrollbox
+    if (multi === true) {
         menu.classList.add('multi-select');
         button.style.display = 'none'
     }
@@ -83,12 +83,11 @@ export default function comboBox(id, arr, multiSel) {
         As.forEach(A => A.style.display = 'flex');
     }
 
-    // update items in the input field when menu items are clicked
     function updateInputField() {
         let selectedItems = [];
         let items = '';
 
-        if (!multiSelect) {
+        if (!multi) {
             selectedItems = As.find(A => A.dataset.menuSelected === 'true');
             items = selectedItems.innerText;
             searchField.value = items;
@@ -96,7 +95,7 @@ export default function comboBox(id, arr, multiSel) {
             menu.style.display = 'none';
         }
 
-        if (multiSelect) {
+        if (multi) {
             selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
 
             if (selectedItems.length > 0) {
