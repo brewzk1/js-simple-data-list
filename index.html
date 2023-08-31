@@ -12,43 +12,50 @@
 <body>
     <main class="container">
         <h1>Exploring the ComboBox</h1>
-        <p>This is an exploration of a <a
+        <p>This is an exploration of the <a
                 href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#:~:text=A%20combobox%20is%20an%20input,the%20popup%20presents%20suggested%20values"
-                target="_blank" rel="noopener noreferrer">combox box</a>.</p>
+                target="_blank" rel="noopener noreferrer">combox box</a> pattern, specifically the <a
+                href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/"
+                target="_blank" rel="noopener noreferrer">Editable Combobox With List Autocomplete</a>.</p>
 
         <!-- features -->
         <h2>Features</h2>
         <ul>
-            <li><b>No styles</b>; leaves that to developers or libraries like <b>Bootstrap</b></li>
-            <li>Can support <b>single</b> or <b>mulitple</b> selections</li>
-            <li>Navigable using <b>tabs</b> (sorta)</li>
+            <li><b>No styles</b> - leaves that to developers/libraries</li>
+            <li>Supports <b>single</b> or <b>mulitple</b> selections</li>
+            <li>Navigable with <b>tabs</b> (well, sorta)</li>
         </ul>
 
-        <!-- example 1 -->
-        <h2>Example 1</h2>
-        <p>There are 2 drop down menus. Clicking one closes a previously opened menu and opens on the widget that is in
-            focus.</p>
+        <div id="examples">
+            <!-- example 1 -->
+            <h2>Example 1</h2>
+            <p>Below are two <b>single select</b> menus. Clicking one closes a previously opened menu and opens on the
+                widget that is in
+                focus.</p>
 
-        <p><label for="fruits1Input"><b>Choose a 1st Fruit</b></label></p>
-        <div id="fruits1Menu" class="comboBox">
-            <input type="text" id="fruits1Input" autocomplete="off"><button>></button>
-            <div></div>
-        </div>
+            <p><label for="fruits1Input"><b>Choose a 1st Fruit</b></label></p>
+            <div id="fruits1Menu" class="comboBox">
+                <input type="text" id="fruits1Input" autocomplete="off"><button>></button>
+                <div tabindex="1"></div>
+            </div>
 
-        <p><label for="fruits2Input"><b>Choose a 2nd Fruit</b></label></p>
-        <div id="fruits2Menu" class="comboBox">
-            <input type="text" id="fruits2Input" autocomplete="off"><button>></button>
-            <div></div>
-        </div>
+            <p><label for="fruits2Input"><b>Choose a 2nd Fruit</b></label></p>
+            <div id="fruits2Menu" class="comboBox">
+                <input type="text" id="fruits2Input" autocomplete="off"><button>></button>
+                <div></div>
+            </div>
 
-        <!-- example 2 -->
-        <h2>Example 2</h2>
-        <p>This is a single menu which is always displayed and allows multiple selections via a scrollbox. </p>
+            <!-- example 2 -->
+            <h2>Example 2</h2>
+            <p>This is a <b>multi-select</b> menu which is always displayed and allows multiple selections via a
+                scrollbox.
+            </p>
 
-        <p><label for="fruits3Input"><b>Choose Multiple Fruits</b></label></p>
-        <div id="fruits3Menu" class="comboBox">
-            <input type="text" id="fruits3Input" autocomplete="off"><button>></button>
-            <div></div>
+            <p><label for="fruits3Input"><b>Choose Multiple Fruits</b></label></p>
+            <div id="fruits3Menu" class="comboBox">
+                <input type="text" id="fruits3Input" autocomplete="off"><button>></button>
+                <div></div>
+            </div>
         </div>
 
         <!-- resources -->
@@ -58,6 +65,8 @@
                 <a href="https://www.dom-tricks.com/click-outside" target="_blank" rel="noopener noreferrer">DOM Clicks
                     (outside)</a>
             </li>
+            <li><a href="https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar" target="_blank"
+                    rel="noopener noreferrer">Custom Scroll Bar</a></li>
         </ul>
     </main>
 

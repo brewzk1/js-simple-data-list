@@ -1,3 +1,8 @@
+ body {
+     box-sizing: border-box;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+
  .comboBox div {
      position: absolute;
      display: flex;
@@ -44,4 +49,6 @@
      }
  }
 
- /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar */
+ #examples {
+     margin: 0 2rem;
+ }
