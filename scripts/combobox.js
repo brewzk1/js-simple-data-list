@@ -36,7 +36,7 @@ export default function comboBox(id, arr, isMultiSelect) {
             const A = document.createElement('A');
 
             A.textContent = item.data;
-            A.setAttribute('href', '#');
+            A.setAttribute('href', `#${id}`);
             A.setAttribute('data-menu-selected', 'false');
             A.addEventListener('click', function () {
                 const menuState = this.dataset.menuSelected === 'false' ? 'true' : 'false';
