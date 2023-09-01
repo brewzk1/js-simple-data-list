@@ -13,6 +13,7 @@ export default function comboBox(id, arr, isMultiSelect) {
         button.style.display = 'none'
     }
 
+    // if arr has items, create menu
     if (arr.length > 0) {
         const menuItems = arr.map((item, i) => ({ id: i, data: item }));
 
@@ -27,8 +28,8 @@ export default function comboBox(id, arr, isMultiSelect) {
         });
 
         // toggle menu
-        button.addEventListener('click', function () {
-            menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+        widget.addEventListener('click', function () {
+            if (!multi) menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
         });
 
         // use menuItems to create A tags and add to menu
@@ -92,7 +93,6 @@ export default function comboBox(id, arr, isMultiSelect) {
             items = selectedItems.innerText;
             searchField.value = items;
             selectedItems.dataset.menuSelected = 'false';
-            menu.style.display = 'none';
         }
 
         if (multi) {
@@ -110,11 +110,10 @@ export default function comboBox(id, arr, isMultiSelect) {
                 });
 
                 searchField.value = items;
-                // todo copy the pattern above for this
-            } else {
-                clearFieldHideMenu();
             }
 
+            if (selectedItems.length === 0) searchField.value = '';
         }
+
     }
 }
