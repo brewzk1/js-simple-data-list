@@ -10,7 +10,7 @@ export default function comboBox(id, arr, isMultiSelect) {
     // if multi show menu as scrollbox
     if (multi === true) {
         menu.classList.add('multi-select');
-        button.style.display = 'none'
+        button.style.display = 'none';
     }
 
     // if arr has items, create menu
@@ -32,7 +32,7 @@ export default function comboBox(id, arr, isMultiSelect) {
             if (!multi) menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
         });
 
-        // use menuItems to create A tags and add to menu
+        // create menu
         menuItems.forEach(item => {
             const A = document.createElement('A');
 
@@ -49,9 +49,10 @@ export default function comboBox(id, arr, isMultiSelect) {
             menu.appendChild(A);
         });
 
-        // get anchors
+        // get menu items (A tags)
         As = Array.from(menu.children);
 
+        // listen for certain key presses
         searchField.addEventListener('keyup', function (evt) {
             // update menu items if input text
             if (this.value !== '') {
@@ -72,11 +73,15 @@ export default function comboBox(id, arr, isMultiSelect) {
     }
 
     // close menu when user clicks outside it
-    if (window.comboBoxEvent === undefined) window.comboBoxEvent = new Event('comboBoxEvent');
-    if (window.comboBoxEvent instanceof (Event)) {
-        document.addEventListener('click', function (event) {
-            if (!widget.contains(event.target)) widget.dispatchEvent(window.comboBoxEvent);
-        });
+    if (arr.length > 0) setComboBoxEvent();
+
+    function setComboBoxEvent() {
+        if (window.comboBoxEvent === undefined) window.comboBoxEvent = new Event('comboBoxEvent');
+        if (window.comboBoxEvent instanceof (Event)) {
+            document.addEventListener('click', function (event) {
+                if (!widget.contains(event.target)) widget.dispatchEvent(window.comboBoxEvent);
+            });
+        }
     }
 
     function clearFieldHideMenu() {
