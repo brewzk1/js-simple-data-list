@@ -1,6 +1,6 @@
  body {
      box-sizing: border-box;
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     font-family: 'Noto Sans Display', sans-serif;
  }
 
  .comboBox {
@@ -11,7 +11,7 @@
      position: absolute;
      display: flex;
      flex-direction: column;
-     max-width: max-content;
+     width: 12rem;
      max-height: 30vh;
      overflow-y: auto;
      display: none;
@@ -38,7 +38,7 @@
 
  .comboBox {
      ::-webkit-scrollbar {
-         width: 10px;
+         width: 15px;
      }
 
      ::-webkit-scrollbar-track {
