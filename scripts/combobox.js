@@ -11,6 +11,8 @@ export default function comboBox(id, arr, isMultiSelect) {
     if (multi === true) {
         menu.classList.add('multi-select');
         button.style.display = 'none';
+    } else {
+        button.textContent = '+';
     }
 
     // if arr has items, create menu
@@ -18,8 +20,9 @@ export default function comboBox(id, arr, isMultiSelect) {
         const menuItems = arr.map((item, i) => ({ id: i, data: item }));
 
         // hide menu if there was click elsewhere on page
-        widget.addEventListener('comboBoxEvent', function () {
+        widget.addEventListener('comboBoxEvent', function (evt) {
             if (menu.style.display = 'flex') clearFieldHideMenu();
+            updateButton();
         });
 
         // hide menu if esc key
@@ -28,8 +31,9 @@ export default function comboBox(id, arr, isMultiSelect) {
         });
 
         // toggle menu
-        widget.addEventListener('click', function () {
+        widget.addEventListener('click', function (evt) {
             if (!multi) menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+            updateButton();
         });
 
         // create menu
@@ -52,9 +56,9 @@ export default function comboBox(id, arr, isMultiSelect) {
         // get menu items (A tags)
         As = Array.from(menu.children);
 
-        // listen for certain key presses
+        // listen for key presses
         searchField.addEventListener('keyup', function (evt) {
-            // update menu items if input text
+            // show only menu items that match fully or partially
             if (this.value !== '') {
                 As.forEach(A => {
                     if ((A.innerText).toLowerCase().includes((this.value).toLowerCase())) {
@@ -69,11 +73,16 @@ export default function comboBox(id, arr, isMultiSelect) {
 
             // show menu if up/down keys
             if (evt.key === 'ArrowUp' || evt.key === 'ArrowDown') menu.style.display = 'flex';
+            updateButton();
         });
     }
 
     // close menu when user clicks outside it
     if (arr.length > 0) setComboBoxEvent();
+
+    function updateButton() {
+        button.textContent = (menu.style.display === 'none') ? '+' : '-';
+    }
 
     function setComboBoxEvent() {
         if (window.comboBoxEvent === undefined) window.comboBoxEvent = new Event('comboBoxEvent');
