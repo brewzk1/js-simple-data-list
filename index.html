@@ -15,56 +15,35 @@
 <body>
     <main class="container">
         <h1>Exploring the ComboBox</h1>
-        <p>This is an exploration of the <a
-                href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#:~:text=A%20combobox%20is%20an%20input,the%20popup%20presents%20suggested%20values"
-                target="_blank" rel="noopener noreferrer">combox box</a> pattern, specifically the <a
+        <p>Exploring the <a
                 href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/"
-                target="_blank" rel="noopener noreferrer">Editable Combobox With List Autocomplete</a>.</p>
+                target="_blank" rel="noopener noreferrer">Editable Combobox With Autocomplete</a>.</p>
 
         <!-- features -->
         <h2>Features</h2>
         <ul>
-            <li><b>No styles</b> - leaves that to developers/libraries</li>
-            <li>Supports <b>single</b> or <b>mulitple</b> selections</li>
-            <li><b>A11y</b> compliant (well, sorta)</li>
+            <li>Un-opinionated styling</li>
+            <li>Single or mulitple selections</li>
+            <li>A11y compliant</li>
         </ul>
 
         <div id="examples">
             <!-- example 1 -->
-            <h2>Example 1: Single Select Menus</h2>
-
+            <h2>Example 1: Single Select</h2>
             <p><label for="fruits1Input"><b>Choose a Fruit</b></label></p>
             <div id="fruits1Menu" class="comboBox">
                 <input type="text" id="fruits1Input" autocomplete="off"><button>></button>
                 <div tabindex="1"></div>
             </div>
 
-            <p><label for="fruits2Input"><b>Choose another Fruit</b></label></p>
+            <!-- example 2 -->
+            <h2>Example 2: Multi-Select</h2>
+            <p><label for="fruits2Input"><b>Choose Multiple Fruits</b></label></p>
             <div id="fruits2Menu" class="comboBox">
                 <input type="text" id="fruits2Input" autocomplete="off"><button>></button>
                 <div></div>
             </div>
-
-            <!-- example 2 -->
-            <h2>Example 2: Multi Select Menu</h2>
-
-            <p><label for="fruits3Input"><b>Choose Multiple Fruits</b></label></p>
-            <div id="fruits3Menu" class="comboBox">
-                <input type="text" id="fruits3Input" autocomplete="off"><button>></button>
-                <div></div>
-            </div>
         </div>
-
-        <!-- resources -->
-        <h3>Other Resources</h3>
-        <ul>
-            <li>
-                <a href="https://www.dom-tricks.com/click-outside" target="_blank" rel="noopener noreferrer">DOM Clicks
-                    (outside)</a>
-            </li>
-            <li><a href="https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar" target="_blank"
-                    rel="noopener noreferrer">Custom Scroll Bar</a></li>
-        </ul>
     </main>
 
     <script type="module" src="scripts/index.js"></script>
