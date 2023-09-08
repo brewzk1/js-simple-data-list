@@ -1,14 +1,14 @@
 'use strict';
-export default function comboBox(id, arr, isMultiSelect) {
+export default function comboBox(id, arr, multi) {
     const widget = document.getElementById(id);
     const searchField = widget.getElementsByTagName('input')[0];
     const button = widget.getElementsByTagName('button')[0];
     const menu = widget.getElementsByTagName('div')[0];
-    const multi = isMultiSelect || false;
+    const isMultiSelect = multi || false;
     let As = [];
 
     // if multi show menu as scrollbox
-    if (multi === true) {
+    if (isMultiSelect) {
         menu.classList.add('multi-select');
         button.style.display = 'none';
     } else {
@@ -20,8 +20,8 @@ export default function comboBox(id, arr, isMultiSelect) {
         const menuItems = arr.map((item, i) => ({ id: i, data: item }));
 
         // hide menu if there was click elsewhere on page
-        widget.addEventListener('comboBoxEvent', function (evt) {
-            if (menu.style.display = 'flex') clearFieldHideMenu();
+        widget.addEventListener('comboBoxEvent', function () {
+            if (menu.style.display === 'flex') clearFieldHideMenu();
             updateButton();
         });
 
@@ -30,9 +30,9 @@ export default function comboBox(id, arr, isMultiSelect) {
             if (evt.key === 'Escape') clearFieldHideMenu();
         });
 
-        // toggle menu
-        widget.addEventListener('click', function (evt) {
-            if (!multi) menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+        // toggle menu if s
+        widget.addEventListener('click', function () {
+            if (!isMultiSelect) menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
             updateButton();
         });
 
@@ -61,7 +61,7 @@ export default function comboBox(id, arr, isMultiSelect) {
             // show only menu items that match fully or partially
             if (this.value !== '') {
                 As.forEach(A => {
-                    if ((A.innerText).toLowerCase().includes((this.value).toLowerCase())) {
+                    if (A.innerText.toLowerCase().includes(this.value.toLowerCase())) {
                         A.style.display = 'flex';
                     } else {
                         A.style.display = 'none';
@@ -102,24 +102,22 @@ export default function comboBox(id, arr, isMultiSelect) {
         let selectedItems = [];
         let items = '';
 
-        if (!multi) {
+        if (!isMultiSelect) {
             selectedItems = As.find(A => A.dataset.menuSelected === 'true');
             items = selectedItems.innerText;
             searchField.value = items;
             selectedItems.dataset.menuSelected = 'false';
-        }
-
-        if (multi) {
+        } else {
             selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
 
             if (selectedItems.length > 0) {
                 let items = '';
 
-                selectedItems.forEach((o, i) => {
+                selectedItems.forEach((el, i) => {
                     if (i === selectedItems.length - 1) {
-                        items += o.innerText;
+                        items += el.innerText;
                     } else {
-                        items += o.innerText + ', ';
+                        items += el.innerText + ', ';
                     }
                 });
 
