@@ -20,23 +20,23 @@ export default function comboBox(id, arr, multi) {
         const menuItems = arr.map((item, i) => ({ id: i, data: item }));
 
         // hide menu if there was click elsewhere on page
-        widget.addEventListener('comboBoxEvent', function () {
-            if (menu.style.display === 'flex') clearFieldHideMenu();
-            updateButton();
+        widget.addEventListener('comboBoxEvent', function (e) {
+            if (menu.style.display === 'flex') clearFieldHideMenu(e);
+            button.textContent = '+';
         });
 
         // hide menu if esc key
-        widget.addEventListener('keyup', function (evt) {
-            if (evt.key === 'Escape') clearFieldHideMenu();
+        widget.addEventListener('keyup', function (e) {
+            if (e.key === 'Escape') clearFieldHideMenu(e);
         });
 
-        // toggle menu if s
-        widget.addEventListener('click', function () {
+        // toggle menu (if single select)
+        widget.addEventListener('click', function (e) {
             if (!isMultiSelect) menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
-            updateButton();
+            updateButton(e);
         });
 
-        // create menu
+        // build menu
         menuItems.forEach(item => {
             const A = document.createElement('A');
 
@@ -57,8 +57,8 @@ export default function comboBox(id, arr, multi) {
         As = Array.from(menu.children);
 
         // listen for key presses
-        searchField.addEventListener('keyup', function (evt) {
-            // show only menu items that match fully or partially
+        searchField.addEventListener('keyup', function (e) {
+            // show items that match fully/partially
             if (this.value !== '') {
                 As.forEach(A => {
                     if (A.innerText.toLowerCase().includes(this.value.toLowerCase())) {
@@ -72,30 +72,34 @@ export default function comboBox(id, arr, multi) {
             }
 
             // show menu if up/down keys
-            if (evt.key === 'ArrowUp' || evt.key === 'ArrowDown') menu.style.display = 'flex';
-            updateButton();
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') menu.style.display = 'flex';
+            updateButton(e);
         });
     }
 
     // close menu when user clicks outside it
     if (arr.length > 0) setComboBoxEvent();
 
-    function updateButton() {
-        button.textContent = (menu.style.display === 'none') ? '+' : '-';
+    function updateButton(e) {
+        e.stopPropagation();
+        if (e.target.parentElement.getAttribute('id') === id) button.textContent = (menu.style.display === 'none') ? '+' : '-';
     }
 
     function setComboBoxEvent() {
         if (window.comboBoxEvent === undefined) window.comboBoxEvent = new Event('comboBoxEvent');
+
         if (window.comboBoxEvent instanceof (Event)) {
-            document.addEventListener('click', function (event) {
-                if (!widget.contains(event.target)) widget.dispatchEvent(window.comboBoxEvent);
+            document.addEventListener('click', function (e) {
+                if (!widget.contains(e.target)) widget.dispatchEvent(window.comboBoxEvent);
             });
         }
     }
 
-    function clearFieldHideMenu() {
+    function clearFieldHideMenu(e) {
         menu.style.display = 'none';
         As.forEach(A => A.style.display = 'flex');
+
+        updateButton(e);
     }
 
     function updateInputField() {
@@ -107,7 +111,9 @@ export default function comboBox(id, arr, multi) {
             items = selectedItems.innerText;
             searchField.value = items;
             selectedItems.dataset.menuSelected = 'false';
-        } else {
+        }
+
+        if (isMultiSelect) {
             selectedItems = As.filter(A => A.dataset.menuSelected === 'true');
 
             if (selectedItems.length > 0) {
@@ -126,6 +132,5 @@ export default function comboBox(id, arr, multi) {
 
             if (selectedItems.length === 0) searchField.value = '';
         }
-
     }
 }
