@@ -2,17 +2,17 @@
 export default function comboBox(id, arr, multi) {
     const widget = document.getElementById(id);
     const searchField = widget.getElementsByTagName('input')[0];
-    const button = widget.getElementsByTagName('button')[0];
     const menu = widget.getElementsByTagName('div')[0];
     const isMultiSelect = multi || false;
+    let button;
     let As = [];
 
     // if multi show menu as scrollbox
     if (isMultiSelect) {
         menu.classList.add('multi-select');
-        button.style.display = 'none';
     } else {
-        button.textContent = '+';
+        button = widget.getElementsByTagName('button')[0];
+        if (button) button.textContent = '+';
     }
 
     // if arr has items, create menu
@@ -22,7 +22,7 @@ export default function comboBox(id, arr, multi) {
         // hide menu if there was click elsewhere on page
         widget.addEventListener('comboBoxEvent', function (e) {
             if (menu.style.display === 'flex') clearFieldHideMenu(e);
-            button.textContent = '+';
+            if (button) button.textContent = '+';
         });
 
         // hide menu if esc key
@@ -73,6 +73,7 @@ export default function comboBox(id, arr, multi) {
 
             // show menu if up/down keys
             if (e.key === 'ArrowUp' || e.key === 'ArrowDown') menu.style.display = 'flex';
+
             updateButton(e);
         });
     }
@@ -82,7 +83,7 @@ export default function comboBox(id, arr, multi) {
 
     function updateButton(e) {
         e.stopPropagation();
-        if (e.target.parentElement.getAttribute('id') === id) button.textContent = (menu.style.display === 'none') ? '+' : '-';
+        if (e.target.parentElement.getAttribute('id') === id && button) button.textContent = (menu.style.display === 'none') ? '+' : '-';
     }
 
     function setComboBoxEvent() {
