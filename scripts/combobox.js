@@ -4,10 +4,11 @@ export default function comboBox(id, arr, multi) {
     const searchField = widget.getElementsByTagName('input')[0];
     const menu = widget.getElementsByTagName('div')[0];
     const isMultiSelect = multi || false;
+
     let button;
     let As = [];
 
-    // if multi show menu as scrollbox
+    // if multi select show menu with scrollbox
     if (isMultiSelect) {
         menu.classList.add('multi-select');
     } else {
@@ -15,7 +16,7 @@ export default function comboBox(id, arr, multi) {
         if (button) button.textContent = '+';
     }
 
-    // if arr has items, create menu
+    // if arr has items build menu
     if (arr.length > 0) {
         const menuItems = arr.map((item, i) => ({ id: i, data: item }));
 
@@ -23,6 +24,7 @@ export default function comboBox(id, arr, multi) {
         widget.addEventListener('comboBoxEvent', function (e) {
             if (menu.style.display === 'flex') clearFieldHideMenu(e);
             if (button) button.textContent = '+';
+            if (e.target.id === widget.getAttribute('id')) console.log('matched', e.target.id)
         });
 
         // hide menu if esc key
@@ -78,14 +80,18 @@ export default function comboBox(id, arr, multi) {
         });
     }
 
-    // close menu when user clicks outside it
+    // if arr has items set up combobox event
     if (arr.length > 0) setComboBoxEvent();
 
+    // If btn was clicked and is same as widget id, toggle button label to + or -
     function updateButton(e) {
         e.stopPropagation();
+
         if (e.target.parentElement.getAttribute('id') === id && button) button.textContent = (menu.style.display === 'none') ? '+' : '-';
     }
 
+    // Set custom event if it doesn't already exist.
+    // If the element clicked wasn't a combobox, dispatch the event.
     function setComboBoxEvent() {
         if (window.comboBoxEvent === undefined) window.comboBoxEvent = new Event('comboBoxEvent');
 
@@ -96,6 +102,7 @@ export default function comboBox(id, arr, multi) {
         }
     }
 
+    // Clear input field and set all menu items visible/flex
     function clearFieldHideMenu(e) {
         menu.style.display = 'none';
         As.forEach(A => A.style.display = 'flex');
@@ -103,6 +110,9 @@ export default function comboBox(id, arr, multi) {
         updateButton(e);
     }
 
+    // If single select menu and item cicked, place word in text field.
+    // If multi select menu append each word to text field seperated by ','.
+    // If item is clicked again remove from the field.
     function updateInputField() {
         let selectedItems = [];
         let items = '';
@@ -135,3 +145,4 @@ export default function comboBox(id, arr, multi) {
         }
     }
 }
+// BUG click on 2nd field, click 1st field. Only the 1st field dropdown should be shown
